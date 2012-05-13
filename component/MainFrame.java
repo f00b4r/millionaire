@@ -3,6 +3,7 @@ package component;
 import control.MainController;
 import control.QuestionController;
 import entity.Amounts;
+import entity.Answer;
 import entity.QuestionSet;
 import java.util.Hashtable;
 import javax.swing.JLabel;
@@ -12,9 +13,10 @@ import javax.swing.JLabel;
  * @author Felix
  */
 public class MainFrame extends javax.swing.JFrame {
-    
+
     private QuestionController controller = MainController.getInstance().getQuestionController();
     private MainController context = MainController.getInstance();
+    private Amounts actualLevel = Amounts.Q1000;
 
     /**
      * Creates new form MainFrame
@@ -23,7 +25,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         initMyComponents();
     }
-    
+
     private void initMyComponents() {
         Hashtable<Integer, JLabel> awards = new Hashtable<>();
         for (Amounts a : Amounts.values()) {
@@ -31,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         awardsSlider.setLabelTable(awards);
     }
-    
+
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
@@ -318,40 +320,59 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }//GEN-END:initComponents
-    
+
     private void answerAbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerAbuttonActionPerformed
-        controller.pick(QuestionController.Answers.A);
+        pick(QuestionController.Answers.A);
     }//GEN-LAST:event_answerAbuttonActionPerformed
-    
+
     private void answerBbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerBbuttonActionPerformed
-        controller.pick(QuestionController.Answers.B);
+        pick(QuestionController.Answers.B);
     }//GEN-LAST:event_answerBbuttonActionPerformed
-    
+
     private void answerCbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerCbuttonActionPerformed
-        controller.pick(QuestionController.Answers.C);
+        pick(QuestionController.Answers.C);
     }//GEN-LAST:event_answerCbuttonActionPerformed
-    
+
     private void answerDbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerDbuttonActionPerformed
-        controller.pick(QuestionController.Answers.D);
+        pick(QuestionController.Answers.D);
     }//GEN-LAST:event_answerDbuttonActionPerformed
-    
+
     private void playMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMenuActionPerformed
         context.play();
     }//GEN-LAST:event_playMenuActionPerformed
-    
+
     private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
         dispose();
         System.exit(0);
     }//GEN-LAST:event_exitMenuActionPerformed
-    
+
     public void play() {
+        next();
+    }
+
+    public void next() {
+        actualLevel = Amounts.getNext(actualLevel);
         QuestionSet set = controller.getSet(1000);
         question.setText(set.getQuestion().getMessage());
         answerA.setText(set.getAnswerA().getMessage());
         answerB.setText(set.getAnswerB().getMessage());
         answerC.setText(set.getAnswerC().getMessage());
         answerD.setText(set.getAnswerD().getMessage());
-        
+    }
+
+    public void pick(QuestionController.Answers answer) {
+        if (controller.pick(answer)) {
+            showStatus("Spravna odpoved");
+            // poskocit na dalsi otazku
+            // pohnout se sliderem
+        } else {
+            showStatus("Spatna odpoved");
+            // hra konci
+        }
+    }
+
+    public void showStatus(String msg) {
+        status.setText(msg);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerA;

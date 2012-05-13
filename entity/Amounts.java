@@ -30,4 +30,17 @@ public enum Amounts {
     public int getValue() {
         return this.value;
     }
+
+    public static Amounts getNext(Amounts a) {
+        boolean next = false;
+        for (Amounts amount : values()) {
+            if (next) {
+                return amount;
+            }
+            if (amount.equals(a)) {
+                next = true;
+            }
+        }
+        return a;
+    }
 }
