@@ -37,6 +37,7 @@ public class MainController {
     
     public void play() {
         questionController.loadQuestions();
+        view.play();
     }
 
     private static class MainControllerHolder {

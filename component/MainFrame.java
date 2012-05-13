@@ -12,7 +12,7 @@ import javax.swing.JLabel;
  * @author Felix
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    
     private QuestionController controller = MainController.getInstance().getQuestionController();
     private MainController context = MainController.getInstance();
 
@@ -23,7 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         initMyComponents();
     }
-
+    
     private void initMyComponents() {
         Hashtable<Integer, JLabel> awards = new Hashtable<>();
         for (Amounts a : Amounts.values()) {
@@ -31,7 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         awardsSlider.setLabelTable(awards);
     }
-
+    
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
@@ -102,7 +102,7 @@ public class MainFrame extends javax.swing.JFrame {
             awardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(awardsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(awardsSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addComponent(awardsSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -247,7 +247,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         status.setText("Status");
@@ -256,20 +256,18 @@ public class MainFrame extends javax.swing.JFrame {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(statusPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
         );
         statusPanelLayout.setVerticalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(statusPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(status)
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jMenu3.setText("Soubor");
 
+        playMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         playMenu.setText("Nova hra");
         playMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,7 +276,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu3.add(playMenu);
 
+        exitMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         exitMenu.setText("Skoncit");
+        exitMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuActionPerformed(evt);
+            }
+        });
         jMenu3.add(exitMenu);
 
         menu.add(jMenu3);
@@ -314,27 +318,32 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }//GEN-END:initComponents
-
+    
     private void answerAbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerAbuttonActionPerformed
         controller.pick(QuestionController.Answers.A);
     }//GEN-LAST:event_answerAbuttonActionPerformed
-
+    
     private void answerBbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerBbuttonActionPerformed
         controller.pick(QuestionController.Answers.B);
     }//GEN-LAST:event_answerBbuttonActionPerformed
-
+    
     private void answerCbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerCbuttonActionPerformed
         controller.pick(QuestionController.Answers.C);
     }//GEN-LAST:event_answerCbuttonActionPerformed
-
+    
     private void answerDbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerDbuttonActionPerformed
         controller.pick(QuestionController.Answers.D);
     }//GEN-LAST:event_answerDbuttonActionPerformed
-
+    
     private void playMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMenuActionPerformed
         context.play();
     }//GEN-LAST:event_playMenuActionPerformed
-
+    
+    private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
+        dispose();
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuActionPerformed
+    
     public void play() {
         QuestionSet set = controller.getSet(1000);
         question.setText(set.getQuestion().getMessage());
@@ -342,7 +351,7 @@ public class MainFrame extends javax.swing.JFrame {
         answerB.setText(set.getAnswerB().getMessage());
         answerC.setText(set.getAnswerC().getMessage());
         answerD.setText(set.getAnswerD().getMessage());
-
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerA;
