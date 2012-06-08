@@ -5,9 +5,14 @@ import control.QuestionController;
 import entity.Amounts;
 import entity.Answer;
 import entity.QuestionSet;
+import entity.hints.AudienceHelp;
+import entity.hints.CallAFriend;
 import entity.hints.FiftyFifty;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
 import java.util.Hashtable;
+import java.util.Map;
 import javax.swing.JLabel;
 
 /**
@@ -144,8 +149,18 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         callAFriendButton.setText("Přítel na telefonu");
+        callAFriendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAFriendButtonActionPerformed(evt);
+            }
+        });
 
         audienceHelpButton.setText("Pomoc publika");
+        audienceHelpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                audienceHelpButtonActionPerformed(evt);
+            }
+        });
 
         answerDbutton.setText("D");
         answerDbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -366,9 +381,53 @@ public class MainFrame extends javax.swing.JFrame {
         fiftyFiftyButton.setEnabled(false);
         controller.setHintStrategy(new FiftyFifty());
         controller.hint();
-        updateQuestionSetTexts();
+        QuestionSet set = controller.getCurrentSet();
+        for (Answer answer : set.getAnswers()) {
+            if (answer.isRemoved()) {
+                if (answerA.getText().equalsIgnoreCase(answer.getMessage())) {
+                    answerA.setFont(strikeFont(answerA.getFont()));
+                } else if (answerB.getText().equalsIgnoreCase(answer.getMessage())) {
+                    answerB.setFont(strikeFont(answerB.getFont()));
+                } else if (answerC.getText().equalsIgnoreCase(answer.getMessage())) {
+                    answerC.setFont(strikeFont(answerC.getFont()));
+                } else if (answerD.getText().equalsIgnoreCase(answer.getMessage())) {
+                    answerD.setFont(strikeFont(answerD.getFont()));
+                }
+            }
+        }
     }//GEN-LAST:event_fiftyFiftyButtonActionPerformed
 
+    private void callAFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAFriendButtonActionPerformed
+        callAFriendButton.setEnabled(false);
+        controller.setHintStrategy(new CallAFriend());
+        Answer[] hinted = controller.hint();
+        Answer answer = hinted[0];
+        if (answerA.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerA.setBackground(Color.YELLOW);
+        } else if (answerB.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerB.setBackground(Color.YELLOW);
+        } else if (answerC.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerC.setBackground(Color.YELLOW);
+        } else if (answerD.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerD.setBackground(Color.YELLOW);
+        }
+    }//GEN-LAST:event_callAFriendButtonActionPerformed
+
+    private void audienceHelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_audienceHelpButtonActionPerformed
+        audienceHelpButton.setEnabled(false);
+        controller.setHintStrategy(new AudienceHelp());
+        Answer[] hinted = controller.hint();
+        Answer answer = hinted[0];
+        if (answerA.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerA.setBackground(Color.GREEN);
+        } else if (answerB.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerB.setBackground(Color.GREEN);
+        } else if (answerC.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerC.setBackground(Color.GREEN);
+        } else if (answerD.getText().equalsIgnoreCase(answer.getMessage())) {
+            answerD.setBackground(Color.GREEN);
+        }
+    }//GEN-LAST:event_audienceHelpButtonActionPerformed
     public void play() {
         next();
     }
@@ -415,6 +474,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    private Font strikeFont(Font font) {
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+        Font newFont = new Font(attributes);
+        return newFont;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerA;
     private javax.swing.JButton answerAbutton;

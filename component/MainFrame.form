@@ -354,11 +354,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="P&#x159;&#xed;tel na telefonu"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAFriendButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="audienceHelpButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pomoc publika"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="audienceHelpButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="answerDbutton">
           <Properties>

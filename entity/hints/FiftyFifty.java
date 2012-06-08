@@ -16,9 +16,10 @@ public class FiftyFifty implements IHintStrategy {
      * is correct and the other is randomly selected from
      * the incorrect ones.
      * @param questionSet
+     * @return hinted answers
      */
     @Override
-    public void applyHint(QuestionSet questionSet) {
+    public Answer[] applyHint(QuestionSet questionSet) {
         // Get the correct answer.
         Answer correctAnswer = questionSet.getCorrectAnswer();
 
@@ -37,6 +38,15 @@ public class FiftyFifty implements IHintStrategy {
         // Now mark those two answers hinted.
         correctAnswer.setHinted(true);
         incorrectAnswer.setHinted(true);
+
+        // And the others removed.
+        for (Answer answer : answers) {
+            if (answer != correctAnswer && answer != incorrectAnswer) {
+                answer.setRemoved(true);
+            }
+        }
+
+        return new Answer[]{correctAnswer, incorrectAnswer};
     }
 
 }

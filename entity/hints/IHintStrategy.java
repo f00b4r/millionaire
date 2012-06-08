@@ -1,5 +1,6 @@
 package entity.hints;
 
+import entity.Answer;
 import entity.QuestionSet;
 
 /**
@@ -8,6 +9,6 @@ import entity.QuestionSet;
  */
 public interface IHintStrategy {
 
-    public void applyHint(QuestionSet questionSet);
+    public Answer[] applyHint(QuestionSet questionSet);
 
 }

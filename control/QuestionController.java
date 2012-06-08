@@ -1,6 +1,7 @@
 package control;
 
 import component.data.QuestionSetSource;
+import entity.Answer;
 import entity.QuestionSet;
 import entity.hints.IHintStrategy;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class QuestionController {
         this.hintStrategy = hintStrategy;
     }
 
-    public void hint() {
-        hintStrategy.applyHint(actualSet);
+    public Answer[] hint() {
+        return hintStrategy.applyHint(actualSet);
     }
 }

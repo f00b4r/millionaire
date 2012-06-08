@@ -1,6 +1,7 @@
 package entity;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -12,17 +13,35 @@ public class Answer {
     private String message;
     private boolean correct;
     private boolean hinted;
+    private boolean removed;
 
     public Answer() {
         this.message = null;
         this.correct = false;
         this.hinted = false;
+        this.removed = false;
     }
 
     public Answer(String message, boolean correct) {
         this.message = message;
         this.correct = correct;
         this.hinted = false;
+        this.removed = false;
+    }
+
+    /**
+     * @return true if this answer is removed
+     */
+    @XmlTransient
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    /**
+     * @param removed true if this answer is removed
+     */
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
     }
 
     /**
