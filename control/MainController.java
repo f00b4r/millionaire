@@ -10,9 +10,11 @@ public class MainController {
 
     private MainFrame view;
     private QuestionController questionController;
+    private ScoreController scoreController;
 
     private MainController() {
         questionController = new QuestionController(this);
+        scoreController = new ScoreController(this);
     }
 
     public MainFrame getView() {
