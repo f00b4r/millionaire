@@ -11,6 +11,7 @@ import entity.hints.FiftyFifty;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 import javax.swing.JLabel;
@@ -34,12 +35,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void initMyComponents() {
-        Hashtable<Integer, JLabel> awards = new Hashtable<>();
-        for (Amounts a : Amounts.values()) {
-            awards.put(new Integer(a.getValue()), new JLabel(String.valueOf(a.getValue())));
-        }
-        awardsSlider.setLabelTable(awards);
-
         fiftyFiftyButton.setEnabled(false);
         callAFriendButton.setEnabled(false);
         audienceHelpButton.setEnabled(false);
@@ -53,7 +48,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         awardsPanel = new javax.swing.JPanel();
-        awardsSlider = new javax.swing.JSlider();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        awardsTable = new javax.swing.JTable();
         mainPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -95,29 +91,46 @@ public class MainFrame extends javax.swing.JFrame {
         awardsPanel.setBackground(new java.awt.Color(153, 180, 209));
         awardsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        awardsSlider.setMaximum(1000);
-        awardsSlider.setMinorTickSpacing(50);
-        awardsSlider.setOrientation(javax.swing.JSlider.VERTICAL);
-        awardsSlider.setPaintLabels(true);
-        awardsSlider.setPaintTicks(true);
-        awardsSlider.setSnapToTicks(true);
-        awardsSlider.setValue(0);
-        awardsSlider.setEnabled(false);
+        awardsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        awardsTable.setMaximumSize(new java.awt.Dimension(100, 0));
+        jScrollPane2.setViewportView(awardsTable);
 
         javax.swing.GroupLayout awardsPanelLayout = new javax.swing.GroupLayout(awardsPanel);
         awardsPanel.setLayout(awardsPanelLayout);
         awardsPanelLayout.setHorizontalGroup(
             awardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(awardsPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, awardsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(awardsSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                 .addContainerGap())
         );
         awardsPanelLayout.setVerticalGroup(
             awardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(awardsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(awardsSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -208,7 +221,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(0, 331, Short.MAX_VALUE))
+                        .addGap(0, 281, Short.MAX_VALUE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(mainPanelLayout.createSequentialGroup()
@@ -216,26 +229,26 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(mainPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(answerD, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                                        .addComponent(answerD, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(answerC, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                                        .addComponent(answerC, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(answerB, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                                        .addComponent(answerB, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                                     .addGroup(mainPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(answerA, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)))
+                                        .addComponent(answerA, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(answerAbutton, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(answerBbutton, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(answerCbutton, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(answerDbutton, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
@@ -245,9 +258,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(callAFriendButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(audienceHelpButton)))
-                                .addGap(0, 50, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +298,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(fiftyFiftyButton)
                     .addComponent(callAFriendButton)
                     .addComponent(audienceHelpButton))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         status.setText("Status");
@@ -296,7 +309,7 @@ public class MainFrame extends javax.swing.JFrame {
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
         );
         statusPanelLayout.setVerticalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,17 +353,22 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(awardsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(awardsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
             .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(awardsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, 0))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(awardsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(statusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -439,7 +457,7 @@ public class MainFrame extends javax.swing.JFrame {
         fiftyFiftyButton.setEnabled(true);
         callAFriendButton.setEnabled(true);
         audienceHelpButton.setEnabled(true);
-
+        showStatus("");
         next();
     }
 
@@ -463,8 +481,14 @@ public class MainFrame extends javax.swing.JFrame {
     public void pick(QuestionController.Answers answer) {
         if (controller.pick(answer)) {
             showStatus("Spravna odpoved");
-            // poskocit na dalsi otazku
-            // pohnout se sliderem
+            if (!controller.hasMoreQuestions()) {
+                showStatus("Gratuluji, jste milionar!");
+                endGame();
+            } else {
+                // poskocit na dalsi otazku
+                next();
+                // pohnout se sliderem
+            }
         } else {
             // hra konci
             showStatus("Spatna odpoved");
@@ -496,6 +520,9 @@ public class MainFrame extends javax.swing.JFrame {
         answerD.setBackground(Color.WHITE);
     }
 
+    private void updateAwards() {
+    }
+
     private Font strikeFont(Font font) {
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
@@ -507,7 +534,6 @@ public class MainFrame extends javax.swing.JFrame {
         JLabel tmp = new JLabel();
         return tmp.getFont();
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerA;
     private javax.swing.JButton answerAbutton;
@@ -519,7 +545,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton answerDbutton;
     private javax.swing.JButton audienceHelpButton;
     private javax.swing.JPanel awardsPanel;
-    private javax.swing.JSlider awardsSlider;
+    private javax.swing.JTable awardsTable;
     private javax.swing.JButton callAFriendButton;
     private javax.swing.JMenuItem exitMenu;
     private javax.swing.JButton fiftyFiftyButton;
@@ -536,6 +562,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;

@@ -19,7 +19,7 @@ public class QuestionController {
     private MainController context;
     private QuestionSetSource questionSetSource;
     private ArrayList<QuestionSet> questionSets;
-    private QuestionSet actualSet;
+    private QuestionSet currentSet;
     private IHintStrategy hintStrategy;
 
     public QuestionController(MainController context) {
@@ -31,28 +31,41 @@ public class QuestionController {
         questionSets = questionSetSource.loadQuestionSets();
     }
 
+    public ArrayList<QuestionSet> getQuestions() {
+        return questionSets;
+    }
+
     public QuestionSet getCurrentSet() {
-        return actualSet;
+        return currentSet;
+    }
+
+    public int getCurrentSetIndex() {
+        return questionSets.indexOf(currentSet);
+    }
+
+    public boolean hasMoreQuestions() {
+        if (getQuestions() == null) return false;
+        return getCurrentSetIndex() < getQuestions().size() - 1;
     }
 
     public void nextSet() {
-        int i = questionSets.indexOf(actualSet);
-        if (i < questionSets.size()) {
-            actualSet = questionSets.get(i + 1);
+        int i = getCurrentSetIndex();
+        if (i < questionSets.size() -1) {
+            currentSet = questionSets.get(i + 1);
         } else {
-            actualSet = null;
+            currentSet = null;
         }
     }
 
     public boolean pick(Answers answer) {
         if (answer == Answers.A) {
-            return actualSet.isCorrectA();
+            return currentSet.isCorrectA();
         } else if (answer == Answers.B) {
-            return actualSet.isCorrectB();
+            return currentSet.isCorrectB();
         } else if (answer == Answers.C) {
-            return actualSet.isCorrectC();
+            return currentSet.isCorrectC();
         } else if (answer == Answers.D) {
-            return actualSet.isCorrectD();
+            return currentSet.isCorrectD();
         }
 
         throw new IllegalArgumentException();
@@ -63,6 +76,6 @@ public class QuestionController {
     }
 
     public Answer[] hint() {
-        return hintStrategy.applyHint(actualSet);
+        return hintStrategy.applyHint(currentSet);
     }
 }
