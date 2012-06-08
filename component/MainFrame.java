@@ -5,6 +5,8 @@ import control.QuestionController;
 import entity.Amounts;
 import entity.Answer;
 import entity.QuestionSet;
+import entity.hints.FiftyFifty;
+import java.awt.Color;
 import java.util.Hashtable;
 import javax.swing.JLabel;
 
@@ -35,7 +37,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -56,9 +59,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        fiftyFiftyButton = new javax.swing.JButton();
+        callAFriendButton = new javax.swing.JButton();
+        audienceHelpButton = new javax.swing.JButton();
         answerDbutton = new javax.swing.JButton();
         answerCbutton = new javax.swing.JButton();
         answerBbutton = new javax.swing.JButton();
@@ -115,21 +118,34 @@ public class MainFrame extends javax.swing.JFrame {
         question.setMinimumSize(new java.awt.Dimension(0, 0));
         jScrollPane1.setViewportView(question);
 
+        answerA.setOpaque(true);
+
         jLabel2.setText("A)");
+
+        answerB.setOpaque(true);
 
         jLabel3.setText("B)");
 
         jLabel4.setText("C)");
 
+        answerC.setOpaque(true);
+
+        answerD.setOpaque(true);
+
         jLabel5.setText("D)");
 
         jLabel12.setText("Napovedy");
 
-        jButton1.setText("50 na 50");
+        fiftyFiftyButton.setText("50 na 50");
+        fiftyFiftyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fiftyFiftyButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("50 na 50");
+        callAFriendButton.setText("Přítel na telefonu");
 
-        jButton3.setText("50 na 50");
+        audienceHelpButton.setText("Pomoc publika");
 
         answerDbutton.setText("D");
         answerDbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -204,12 +220,12 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
                                     .addGroup(mainPanelLayout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(fiftyFiftyButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2)
+                                        .addComponent(callAFriendButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton3)))
-                                .addGap(0, 114, Short.MAX_VALUE)))
+                                        .addComponent(audienceHelpButton)))
+                                .addGap(0, 50, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
@@ -246,9 +262,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(fiftyFiftyButton)
+                    .addComponent(callAFriendButton)
+                    .addComponent(audienceHelpButton))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -319,7 +335,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void answerAbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerAbuttonActionPerformed
         pick(QuestionController.Answers.A);
@@ -346,18 +362,21 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuActionPerformed
 
+    private void fiftyFiftyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiftyFiftyButtonActionPerformed
+        fiftyFiftyButton.setEnabled(false);
+        controller.setHintStrategy(new FiftyFifty());
+        controller.hint();
+        updateQuestionSetTexts();
+    }//GEN-LAST:event_fiftyFiftyButtonActionPerformed
+
     public void play() {
         next();
     }
 
     public void next() {
         actualLevel = Amounts.getNext(actualLevel);
-        QuestionSet set = controller.getSet(1000);
-        question.setText(set.getQuestion().getMessage());
-        answerA.setText(set.getAnswerA().getMessage());
-        answerB.setText(set.getAnswerB().getMessage());
-        answerC.setText(set.getAnswerC().getMessage());
-        answerD.setText(set.getAnswerD().getMessage());
+        controller.nextSet();
+        updateQuestionSetTexts();
     }
 
     public void pick(QuestionController.Answers answer) {
@@ -374,6 +393,28 @@ public class MainFrame extends javax.swing.JFrame {
     public void showStatus(String msg) {
         status.setText(msg);
     }
+
+    private void updateQuestionSetTexts() {
+        QuestionSet set = controller.getCurrentSet();
+        question.setText(set.getQuestion().getMessage());
+        answerA.setText(set.getAnswerA().getMessage());
+        answerB.setText(set.getAnswerB().getMessage());
+        answerC.setText(set.getAnswerC().getMessage());
+        answerD.setText(set.getAnswerD().getMessage());
+        if (set.getAnswerA().isHinted()) {
+            answerA.setBackground(Color.YELLOW);
+        }
+        if (set.getAnswerB().isHinted()) {
+            answerB.setBackground(Color.YELLOW);
+        }
+        if (set.getAnswerC().isHinted()) {
+            answerC.setBackground(Color.YELLOW);
+        }
+        if (set.getAnswerD().isHinted()) {
+            answerD.setBackground(Color.YELLOW);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerA;
     private javax.swing.JButton answerAbutton;
@@ -383,12 +424,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton answerCbutton;
     private javax.swing.JLabel answerD;
     private javax.swing.JButton answerDbutton;
+    private javax.swing.JButton audienceHelpButton;
     private javax.swing.JPanel awardsPanel;
     private javax.swing.JSlider awardsSlider;
+    private javax.swing.JButton callAFriendButton;
     private javax.swing.JMenuItem exitMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton fiftyFiftyButton;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

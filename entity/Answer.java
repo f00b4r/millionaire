@@ -11,13 +11,34 @@ public class Answer {
 
     private String message;
     private boolean correct;
+    private boolean hinted;
 
     public Answer() {
+        this.message = null;
+        this.correct = false;
+        this.hinted = false;
     }
 
     public Answer(String message, boolean correct) {
         this.message = message;
         this.correct = correct;
+        this.hinted = false;
+    }
+
+    /**
+     * Tells if this answer is hinted.
+     * @return true if this answer is hinted
+     */
+    public boolean isHinted() {
+        return hinted;
+    }
+
+    /**
+     * Sets hinted state for this answer.
+     * @param hinted
+     */
+    public void setHinted(boolean hinted) {
+        this.hinted = hinted;
     }
 
     /**

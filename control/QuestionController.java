@@ -1,8 +1,8 @@
 package control;
 
-import entity.Answer;
-import entity.Question;
+import component.data.QuestionSetSource;
 import entity.QuestionSet;
+import entity.hints.IHintStrategy;
 import java.util.ArrayList;
 
 /**
@@ -16,26 +16,31 @@ public class QuestionController {
         A, B, C, D;
     }
     private MainController context;
-    private ArrayList<QuestionSet> questions;
+    private QuestionSetSource questionSetSource;
+    private ArrayList<QuestionSet> questionSets;
     private QuestionSet actualSet;
+    private IHintStrategy hintStrategy;
 
     public QuestionController(MainController context) {
         this.context = context;
+        this.questionSetSource = new QuestionSetSource();
     }
 
     public void loadQuestions() {
-        // @todo: nacitani otazek z JAXB
+        questionSets = questionSetSource.loadQuestionSets();
     }
 
-    public QuestionSet getSet(int price) {
-        actualSet = new QuestionSet();
-        actualSet.setQuestion(new Question("Semik byl?", 1000));
-        actualSet.setAnswerA(new Answer("Kun", true));
-        actualSet.setAnswerB(new Answer("Pes", false));
-        actualSet.setAnswerC(new Answer("Jehne", false));
-        actualSet.setAnswerD(new Answer("Slepice", false));
+    public QuestionSet getCurrentSet() {
         return actualSet;
+    }
 
+    public void nextSet() {
+        int i = questionSets.indexOf(actualSet);
+        if (i < questionSets.size()) {
+            actualSet = questionSets.get(i + 1);
+        } else {
+            actualSet = null;
+        }
     }
 
     public boolean pick(Answers answer) {
@@ -50,5 +55,13 @@ public class QuestionController {
         }
 
         throw new IllegalArgumentException();
+    }
+
+    public void setHintStrategy(IHintStrategy hintStrategy) {
+        this.hintStrategy = hintStrategy;
+    }
+
+    public void hint() {
+        hintStrategy.applyHint(actualSet);
     }
 }

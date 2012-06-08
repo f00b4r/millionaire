@@ -34,7 +34,7 @@ public class MainController {
     public static MainController getInstance() {
         return MainControllerHolder.INSTANCE;
     }
-    
+
     public void play() {
         questionController.loadQuestions();
         view.play();

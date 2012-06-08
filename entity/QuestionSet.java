@@ -9,60 +9,64 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Felix
  */
 @XmlRootElement(name = "set")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class QuestionSet {
-
+    public static final int A = 0;
+    public static final int B = 1;
+    public static final int C = 2;
+    public static final int D = 3;
+    private static final int MAX_ANSWERS = 4;
     private Question question;
-    private Answer answerA;
-    private Answer answerB;
-    private Answer answerC;
-    private Answer answerD;
+    private Answer[] answers;
 
     public QuestionSet() {
+        this.answers = new Answer[MAX_ANSWERS];
     }
 
     public QuestionSet(Question question) {
         this.question = question;
+        this.answers = new Answer[MAX_ANSWERS];
     }
 
     public QuestionSet(Question question, Answer answerA, Answer answerB, Answer answerC, Answer answerD) {
         this.question = question;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
+        this.answers = new Answer[MAX_ANSWERS];
+        this.answers[A] = answerA;
+        this.answers[B] = answerB;
+        this.answers[C] = answerC;
+        this.answers[D] = answerD;
     }
 
     public Answer getAnswerA() {
-        return answerA;
+        return answers[A];
     }
 
     public void setAnswerA(Answer answerA) {
-        this.answerA = answerA;
+        this.answers[A] = answerA;
     }
 
     public Answer getAnswerB() {
-        return answerB;
+        return answers[B];
     }
 
     public void setAnswerB(Answer answerB) {
-        this.answerB = answerB;
+        this.answers[B] = answerB;
     }
 
     public Answer getAnswerC() {
-        return answerC;
+        return answers[C];
     }
 
     public void setAnswerC(Answer answerC) {
-        this.answerC = answerC;
+        this.answers[C] = answerC;
     }
 
     public Answer getAnswerD() {
-        return answerD;
+        return answers[D];
     }
 
     public void setAnswerD(Answer answerD) {
-        this.answerD = answerD;
+        this.answers[D] = answerD;
     }
 
     public Question getQuestion() {
@@ -78,18 +82,31 @@ public class QuestionSet {
     }
 
     public boolean isCorrectA() {
-        return answerA.isCorrect();
+        return answers[A].isCorrect();
     }
 
     public boolean isCorrectB() {
-        return answerB.isCorrect();
+        return answers[B].isCorrect();
     }
 
     public boolean isCorrectC() {
-        return answerC.isCorrect();
+        return answers[C].isCorrect();
     }
 
     public boolean isCorrectD() {
-        return answerD.isCorrect();
+        return answers[D].isCorrect();
+    }
+
+    public Answer[] getAnswers() {
+        return answers;
+    }
+
+    public Answer getCorrectAnswer() {
+        for (int i=0; i<MAX_ANSWERS; i++) {
+            if (answers[i].isCorrect()) {
+                return answers[i];
+            }
+        }
+        throw new UnsupportedOperationException("No correct answer found");
     }
 }

@@ -206,14 +206,14 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fiftyFiftyButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="callAFriendButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="audienceHelpButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="114" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -260,9 +260,9 @@
                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fiftyFiftyButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="callAFriendButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="audienceHelpButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
@@ -296,6 +296,9 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="answerA">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -303,6 +306,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="answerB">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -315,8 +321,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="answerC">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="answerD">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -330,19 +342,22 @@
             <Property name="text" type="java.lang.String" value="Napovedy"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="fiftyFiftyButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="50 na 50"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fiftyFiftyButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="callAFriendButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="50 na 50"/>
+            <Property name="text" type="java.lang.String" value="P&#x159;&#xed;tel na telefonu"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="audienceHelpButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="50 na 50"/>
+            <Property name="text" type="java.lang.String" value="Pomoc publika"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="answerDbutton">
