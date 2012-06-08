@@ -29,17 +29,16 @@ public class MainController {
         return questionController;
     }
 
-    public void setQuestionController(QuestionController questionController) {
-        this.questionController = questionController;
+    public ScoreController getScoreController() {
+        return scoreController;
     }
 
     public static MainController getInstance() {
         return MainControllerHolder.INSTANCE;
     }
 
-    public void play() {
+    public void newGame() {
         questionController.loadQuestions();
-        view.newGame();
     }
 
     private static class MainControllerHolder {

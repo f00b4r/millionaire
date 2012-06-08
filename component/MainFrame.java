@@ -374,7 +374,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_answerDbuttonActionPerformed
 
     private void playMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMenuActionPerformed
-        context.play();
+        context.newGame();
+        newGame();
     }//GEN-LAST:event_playMenuActionPerformed
 
     private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
@@ -442,6 +443,17 @@ public class MainFrame extends javax.swing.JFrame {
         next();
     }
 
+    public void endGame() {
+        fiftyFiftyButton.setEnabled(false);
+        callAFriendButton.setEnabled(false);
+        audienceHelpButton.setEnabled(false);
+        answerA.setText("");
+        answerB.setText("");
+        answerC.setText("");
+        answerD.setText("");
+        question.setText("");
+    }
+
     public void next() {
         actualLevel = Amounts.getNext(actualLevel);
         controller.nextSet();
@@ -454,8 +466,9 @@ public class MainFrame extends javax.swing.JFrame {
             // poskocit na dalsi otazku
             // pohnout se sliderem
         } else {
-            showStatus("Spatna odpoved");
             // hra konci
+            showStatus("Spatna odpoved");
+            endGame();
         }
     }
 

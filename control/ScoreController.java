@@ -26,5 +26,19 @@ public class ScoreController {
         this.score = score;
     }
 
+    public int getSafePoint() {
+        return safePoint;
+    }
 
+    public void setSafePoint(int safePoint) {
+        this.safePoint = safePoint;
+    }
+
+    public int getSafePointScore() {
+        return safePointScore;
+    }
+
+    public void setSafePointScore(int safePointScore) {
+        this.safePointScore = safePointScore;
+    }
 }
