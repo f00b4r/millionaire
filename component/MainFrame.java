@@ -12,9 +12,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Map;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -91,16 +92,20 @@ public class MainFrame extends javax.swing.JFrame {
         awardsPanel.setBackground(new java.awt.Color(153, 180, 209));
         awardsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setToolTipText("");
+        jScrollPane2.setColumnHeader(null);
+
         awardsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "", ""
+                "Otázka", "Výhra"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false
@@ -114,7 +119,9 @@ public class MainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        awardsTable.setFillsViewportHeight(true);
         awardsTable.setMaximumSize(new java.awt.Dimension(100, 0));
+        awardsTable.setShowVerticalLines(false);
         jScrollPane2.setViewportView(awardsTable);
 
         javax.swing.GroupLayout awardsPanelLayout = new javax.swing.GroupLayout(awardsPanel);
@@ -458,6 +465,7 @@ public class MainFrame extends javax.swing.JFrame {
         callAFriendButton.setEnabled(true);
         audienceHelpButton.setEnabled(true);
         showStatus("");
+        updateAwards();
         next();
     }
 
@@ -476,18 +484,19 @@ public class MainFrame extends javax.swing.JFrame {
         actualLevel = Amounts.getNext(actualLevel);
         controller.nextSet();
         updateQuestionSetTexts();
+        int curTableIndex = controller.getQuestions().size() - controller.getCurrentSetIndex() - 1;
+        awardsTable.getSelectionModel().setSelectionInterval(curTableIndex, curTableIndex);
     }
 
     public void pick(QuestionController.Answers answer) {
         if (controller.pick(answer)) {
             showStatus("Spravna odpoved");
             if (!controller.hasMoreQuestions()) {
-                showStatus("Gratuluji, jste milionar!");
+                showStatus("Gratuluji, nyni jste milionar!");
                 endGame();
             } else {
                 // poskocit na dalsi otazku
                 next();
-                // pohnout se sliderem
             }
         } else {
             // hra konci
@@ -521,6 +530,20 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void updateAwards() {
+        ArrayList<QuestionSet> questions = controller.getQuestions();
+        int qSize = questions.size();
+
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Otázka", "Výhra"}, 2);
+        for (int i = 0; i < qSize; i++) {
+            model.setValueAt((qSize - i) + ".", i, 0);
+            model.setValueAt(questions.get(qSize - 1 - i).getQuestion().getAmount() + ",-", i, 1);
+        }
+        model.setRowCount(questions.size());
+        awardsTable.setModel(model);
+
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        awardsTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
     }
 
     private Font strikeFont(Font font) {

@@ -22,6 +22,13 @@ public class QuestionSetSource {
         set.setAnswerC(new Answer("Jehne", false));
         set.setAnswerD(new Answer("Slepice", false));
         sets.add(set);
+        set = new QuestionSet();
+        set.setQuestion(new Question("Java je?", 2000));
+        set.setAnswerA(new Answer("Polský velbloud", false));
+        set.setAnswerB(new Answer("Poloostrov", false));
+        set.setAnswerC(new Answer("Programovací jazyk", true));
+        set.setAnswerD(new Answer("Hovězí jazyk", false));
+        sets.add(set);
 
         return sets;
     }
