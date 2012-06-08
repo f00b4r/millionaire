@@ -460,18 +460,6 @@ public class MainFrame extends javax.swing.JFrame {
         answerB.setText(set.getAnswerB().getMessage());
         answerC.setText(set.getAnswerC().getMessage());
         answerD.setText(set.getAnswerD().getMessage());
-        if (set.getAnswerA().isHinted()) {
-            answerA.setBackground(Color.YELLOW);
-        }
-        if (set.getAnswerB().isHinted()) {
-            answerB.setBackground(Color.YELLOW);
-        }
-        if (set.getAnswerC().isHinted()) {
-            answerC.setBackground(Color.YELLOW);
-        }
-        if (set.getAnswerD().isHinted()) {
-            answerD.setBackground(Color.YELLOW);
-        }
     }
 
     private Font strikeFont(Font font) {
