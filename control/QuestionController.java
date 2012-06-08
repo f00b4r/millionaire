@@ -21,10 +21,14 @@ public class QuestionController {
     private ArrayList<QuestionSet> questionSets;
     private QuestionSet currentSet;
     private IHintStrategy hintStrategy;
+    private int score;
+    private int safePoint;
 
     public QuestionController(MainController context) {
         this.context = context;
         this.questionSetSource = new QuestionSetSource();
+        this.score = 0;
+        this.safePoint = 0;
     }
 
     public void loadQuestions() {
@@ -44,13 +48,15 @@ public class QuestionController {
     }
 
     public boolean hasMoreQuestions() {
-        if (getQuestions() == null) return false;
+        if (getQuestions() == null) {
+            return false;
+        }
         return getCurrentSetIndex() < getQuestions().size() - 1;
     }
 
     public void nextSet() {
         int i = getCurrentSetIndex();
-        if (i < questionSets.size() -1) {
+        if (i < questionSets.size() - 1) {
             currentSet = questionSets.get(i + 1);
         } else {
             currentSet = null;
@@ -77,5 +83,28 @@ public class QuestionController {
 
     public Answer[] hint() {
         return hintStrategy.applyHint(currentSet);
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getSafePoint() {
+        return safePoint;
+    }
+
+    public void setSafePoint(int safePoint) {
+        this.safePoint = safePoint;
+    }
+
+    public int getSafePointScore() {
+        if (safePoint == 0) {
+            return 0;
+        }
+        return questionSets.get(safePoint).getQuestion().getAmount();
     }
 }

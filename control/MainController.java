@@ -10,11 +10,9 @@ public class MainController {
 
     private MainFrame view;
     private QuestionController questionController;
-    private ScoreController scoreController;
 
     private MainController() {
         questionController = new QuestionController(this);
-        scoreController = new ScoreController(this);
     }
 
     public MainFrame getView() {
@@ -27,10 +25,6 @@ public class MainController {
 
     public QuestionController getQuestionController() {
         return questionController;
-    }
-
-    public ScoreController getScoreController() {
-        return scoreController;
     }
 
     public static MainController getInstance() {

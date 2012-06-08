@@ -490,17 +490,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void pick(QuestionController.Answers answer) {
         if (controller.pick(answer)) {
-            showStatus("Spravna odpoved");
             if (!controller.hasMoreQuestions()) {
+                // vitezstvi
                 showStatus("Gratuluji, nyni jste milionar!");
                 endGame();
             } else {
                 // poskocit na dalsi otazku
+                showStatus("Spravna odpoved");
                 next();
             }
         } else {
             // hra konci
-            showStatus("Spatna odpoved");
+            showStatus("Spatna odpoved, vyhravate: "+controller.getSafePointScore()+",-");
             endGame();
         }
     }
