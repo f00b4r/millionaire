@@ -39,6 +39,10 @@ public class MainFrame extends javax.swing.JFrame {
             awards.put(new Integer(a.getValue()), new JLabel(String.valueOf(a.getValue())));
         }
         awardsSlider.setLabelTable(awards);
+
+        fiftyFiftyButton.setEnabled(false);
+        callAFriendButton.setEnabled(false);
+        audienceHelpButton.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -98,6 +102,7 @@ public class MainFrame extends javax.swing.JFrame {
         awardsSlider.setPaintTicks(true);
         awardsSlider.setSnapToTicks(true);
         awardsSlider.setValue(0);
+        awardsSlider.setEnabled(false);
 
         javax.swing.GroupLayout awardsPanelLayout = new javax.swing.GroupLayout(awardsPanel);
         awardsPanel.setLayout(awardsPanelLayout);
@@ -428,7 +433,12 @@ public class MainFrame extends javax.swing.JFrame {
             answerD.setBackground(Color.GREEN);
         }
     }//GEN-LAST:event_audienceHelpButtonActionPerformed
-    public void play() {
+
+    public void newGame() {
+        fiftyFiftyButton.setEnabled(true);
+        callAFriendButton.setEnabled(true);
+        audienceHelpButton.setEnabled(true);
+
         next();
     }
 
@@ -460,6 +470,17 @@ public class MainFrame extends javax.swing.JFrame {
         answerB.setText(set.getAnswerB().getMessage());
         answerC.setText(set.getAnswerC().getMessage());
         answerD.setText(set.getAnswerD().getMessage());
+
+        Font defaultFont = defaultFont();
+        answerA.setFont(defaultFont);
+        answerB.setFont(defaultFont);
+        answerC.setFont(defaultFont);
+        answerD.setFont(defaultFont);
+
+        answerA.setBackground(Color.WHITE);
+        answerB.setBackground(Color.WHITE);
+        answerC.setBackground(Color.WHITE);
+        answerD.setBackground(Color.WHITE);
     }
 
     private Font strikeFont(Font font) {
@@ -468,6 +489,12 @@ public class MainFrame extends javax.swing.JFrame {
         Font newFont = new Font(attributes);
         return newFont;
     }
+
+    private Font defaultFont() {
+        JLabel tmp = new JLabel();
+        return tmp.getFont();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerA;
     private javax.swing.JButton answerAbutton;
